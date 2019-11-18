@@ -9,9 +9,18 @@ class Github{
     //get a user info
 
     async getUserData(){
-        let urlProfile = `https://api.github.com/${this.user}?client_id=${this.client_id}&client_secret=${this.client_secret}`;
-        let urlRepos= `https:api.github.com/${this.user}/repos?per_page${this.repos_count}&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${this.client_secret}`;
+        let urlProfile = `https://api.github.com/users/${this.user}?client_id=${this.client_id}&client_secret=${this.client_secret}`;
+        let urlRepos= `https:api.github.com/users/${this.user}/repos?per_page${this.repos_count}&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${this.client_secret}`;
+        
         const profileResponse = await fetch(urlProfile);
+        const reposResponse = await fetch(urlRepos);
 
+        const profile = await profileResponse.json();
+        const repos = await reposResponse.json();
+
+        return{
+            profile,
+            repos
+        }
     }
 }
